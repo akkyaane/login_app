@@ -19,7 +19,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isLoading = false;
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   void _login() async {
+    FocusScope.of(context).unfocus();
+
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
@@ -67,24 +76,30 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
+      appBar: AppBar(title: Text(widget.title)),
+      body: Center(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Image.asset('assets/images/logo.png', width: 100, height: 100),
+                const SizedBox(height: 16.0),
+                Text(
+                  'Bienvenue',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 4.0),
+                const Text('Veuillez vous connecter'),
+                const SizedBox(height: 24.0),
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
-                    icon: Icon(Icons.mail),
+                    prefixIcon: Icon(Icons.mail_outline),
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
@@ -103,9 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: const InputDecoration(
                     labelText: 'Mot de passe',
                     border: OutlineInputBorder(),
-                    icon: Icon(Icons.lock),
+                    prefixIcon: Icon(Icons.lock_outline),
                   ),
-                  obscureText: true, // Masquer le texte
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Veuillez entrer votre mot de passe';
@@ -119,10 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 24.0),
                 _isLoading
                     ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                  onPressed: _login,
-                  child: const Text('Se connecter'),
-                ),
+                    : FilledButton(
+                        onPressed: _login,
+                        child: const Text('Se connecter'),
+                      ),
               ],
             ),
           ),

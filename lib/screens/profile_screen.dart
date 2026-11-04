@@ -7,48 +7,47 @@ class ProfileScreen extends StatelessWidget {
   final int role;
 
   const ProfileScreen({
-    Key? key,
+    super.key,
     required this.email,
     required this.firstName,
     required this.lastName,
     required this.role,
-  }) : super(key: key);
+  });
+
+  String get roleLabel => switch (role) {
+        1 => 'Administrateur',
+        2 => 'Utilisateur',
+        3 => 'Responsable',
+        _ => 'Rôle $role',
+      };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil de l\'Utilisateur'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
             ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.person_outline),
               title: const Text('Nom'),
               subtitle: Text('$firstName $lastName'),
             ),
             ListTile(
-              leading: const Icon(Icons.email),
+              leading: const Icon(Icons.mail_outline),
               title: const Text('Email'),
               subtitle: Text(email),
             ),
             ListTile(
-              leading: const Icon(Icons.security),
+              leading: const Icon(Icons.shield_outlined),
               title: const Text('Rôle'),
-              subtitle: Text(role.toString()),
+              subtitle: Text(roleLabel),
             ),
             const SizedBox(height: 24.0),
-            ElevatedButton(
+            FilledButton(
               onPressed: () {
                 Navigator.pop(context);
               },

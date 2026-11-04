@@ -13,7 +13,7 @@ class LoginApp extends StatelessWidget {
     return MaterialApp(
       title: 'Application de Connexion',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3F51B5)),
         useMaterial3: true,
       ),
       home: const LoginScreen(title: 'Page de Connexion'),
