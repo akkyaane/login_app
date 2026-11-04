@@ -1,12 +1,10 @@
-// lib/screens/profile_screen.dart
-
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String email;
   final String firstName;
   final String lastName;
-  final String role;
+  final int role;
 
   const ProfileScreen({
     Key? key,
@@ -25,7 +23,6 @@ class ProfileScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              // Action de déconnexion
               Navigator.pop(context);
             },
           ),
@@ -35,7 +32,6 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            // Affichage des informations du profil
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Nom'),
@@ -49,12 +45,11 @@ class ProfileScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.security),
               title: const Text('Rôle'),
-              subtitle: Text(role),
+              subtitle: Text(role.toString()),
             ),
             const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {
-                // Déconnexion en retournant à l'écran de connexion
                 Navigator.pop(context);
               },
               child: const Text('Se déconnecter'),
